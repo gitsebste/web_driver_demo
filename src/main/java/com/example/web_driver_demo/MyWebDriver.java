@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.io.File;
 import java.util.List;
 
 public class MyWebDriver {
@@ -49,8 +48,7 @@ public class MyWebDriver {
 
     private void setUpSystem() {
         String key = "webdriver.chrome.driver";
-        File resourcesDirectory = new File("chromedriver");
-        String path = resourcesDirectory.getAbsolutePath();
+        String path = MyPath.getChromeDriverPath();
         System.setProperty(key, path);
     }
 
