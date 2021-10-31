@@ -53,4 +53,8 @@ public class MyWebDriver {
         System.setProperty(key, path);
     }
 
+    public String getTextBySelector(String selector) {
+        var list = throwOrGetListBySelector(selector);
+        return list.get(0).getText();
+    }
 }

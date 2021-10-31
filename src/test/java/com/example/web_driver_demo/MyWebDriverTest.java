@@ -84,4 +84,32 @@ public class MyWebDriverTest {
                 () -> myWebDriver.typeIntoElementBySelector(inputSearchSelector, "driver")
         );
     }
+
+    @Test
+    void testGetTextBySelector() {
+        myWebDriver.getPage(regularUrl);
+        String selector = "#content_homepage > div.badge-link.badge-link--full.badge-link--set-as-default.js-badge-link > div > div > h1:nth-child(1)";
+        //  <h1>Tired of being tracked online?<span>We can help.</span></h1>
+        String expected = "Tired of being tracked online? We can help.";
+        String actual = myWebDriver.getTextBySelector(selector);
+
+        Assertions.assertAll(
+                exceptionSelectorThrowsGetText(),
+                ()->Assertions.assertEquals(expected,actual)
+        );
+    }
+
+    private Executable exceptionSelectorThrowsGetText() {
+        return () -> Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> myWebDriver.getTextBySelector(exceptionSelector)
+        );
+    }
+
+    private Executable inputSearchSelectorDoesNotThrowGetText() {
+        String inputSearchSelector = "#search_form_input_homepage";
+        return () -> Assertions.assertDoesNotThrow(
+                () -> myWebDriver.typeIntoElementBySelector(inputSearchSelector, "driver")
+        );
+    }
 }
