@@ -18,6 +18,7 @@ public class MyWebDriver {
 
     public void getPage(String url) {
         driver.get(url);
+        throwOrGetListBySelector("html");
     }
 
     public void clickElementBySelector(String selector) {
@@ -25,7 +26,7 @@ public class MyWebDriver {
         list.get(0).click();
     }
 
-    public List<WebElement> getElementsBySelector(String selector) {
+    private List<WebElement> getElementsBySelector(String selector) {
         var list = driver.findElements(By.cssSelector(selector));
         return list;
     }
