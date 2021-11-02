@@ -28,6 +28,6 @@ public class AuchanPromTest {
 
         auchanProm.tryToReachAllProducts();
 
-        Assertions.assertTrue(auchanProm.allProductsReachable());
+        Assertions.assertTrue(auchanProm.AreAllProductsReachable());
     }
 }

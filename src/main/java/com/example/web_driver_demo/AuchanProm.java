@@ -1,6 +1,8 @@
 package com.example.web_driver_demo;
 
-import java.util.function.Consumer;
+import utils.Waiting;
+
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class AuchanProm {
@@ -65,18 +67,22 @@ public class AuchanProm {
         myWebDriver.clickElementBySelector(selector);
     }
 
-    public boolean allProductsReachable() {
-        sleep(10_000);
-        getNumberOfProductsText();
-        setNumbersOfProducts();
-        return numberOfReachableProducts == numberOfAllProducts;
+    private int getNumberOfReachableProducts(){
+        return numberOfReachableProducts;
     }
 
-    private void sleep(int milis){
-        try {
-            Thread.sleep(milis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public boolean AreAllProductsReachable() {
+        getNumberOfProductsText();
+        setNumbersOfProducts();
+
+        Waiting.runUntilStableStateOrTimeout(
+                ()-> {
+                    getNumberOfProductsText();
+                    setNumbersOfProducts();
+                    return getNumberOfReachableProducts();
+                },
+                numberOfAllProducts
+        );
+        return numberOfReachableProducts == numberOfAllProducts;
     }
 }

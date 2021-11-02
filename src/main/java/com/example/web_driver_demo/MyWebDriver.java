@@ -1,21 +1,18 @@
 package com.example.web_driver_demo;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.Waiting;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MyWebDriver {
-
-    private static final int DELTA_TIME_REPEATING_CALLING_MILLISECONDS = 10;
     final WebDriver driver;
-    private RuntimeException lastException;
 
     MyWebDriver() {
         setUpSystem();
@@ -34,30 +31,8 @@ public class MyWebDriver {
     }
 
     private void clickUntilSuccessOneSecTimeout(Runnable run) {
-        final int dt = DELTA_TIME_REPEATING_CALLING_MILLISECONDS;
-        for (int milliseconds = 0; milliseconds < 1_000; milliseconds+=dt) {
-            if (tryToRun(run)) return;
-            sleep(dt);
-        }
-        throw lastException;
+        Waiting.runUntilSuccessOrTimeout(run);
     }
-
-    private boolean tryToRun(Runnable run) {
-        try {
-            run.run();
-            return true;
-        }catch(RuntimeException e){lastException = e;}
-        return false;
-    }
-
-    private void sleep(int milis){
-        try {
-            Thread.sleep(milis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public void clickElementsBySelector(String... selectors) {
         Arrays.stream(selectors).forEach(
