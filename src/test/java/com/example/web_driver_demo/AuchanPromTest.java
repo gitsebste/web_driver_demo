@@ -12,6 +12,7 @@ public class AuchanPromTest {
 
     @BeforeAll
     static void init() {
+
         auchanProm = new AuchanProm();
         auchanProm.getPromPage();
     }

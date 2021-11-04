@@ -74,4 +74,8 @@ public class MyWebDriver {
         var list = throwOrGetListBySelector(selector);
         return list.get(0).getText();
     }
+
+    public int getPageSize(){
+        return driver.getPageSource().length();
+    }
 }
