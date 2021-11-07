@@ -1,6 +1,7 @@
 package com.example.web_driver_demo;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,8 +9,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Waiting;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MyWebDriver {
     final WebDriver driver;
@@ -51,7 +55,7 @@ public class MyWebDriver {
     public void typeIntoElementBySelector(String selector,
                                           CharSequence sequence) {
         var list = throwOrGetListBySelector(selector);
-        list.get(0).sendKeys(sequence);
+        try{list.get(0).sendKeys(sequence);}catch (Exception e){}
     }
 
     private List<WebElement> throwOrGetListBySelector(String selector) {
@@ -77,5 +81,32 @@ public class MyWebDriver {
 
     public int getPageSize(){
         return driver.getPageSource().length();
+    }
+
+    public Rectangle getRectangleBySelector(String selector) {
+        return throwOrGetListBySelector(selector).get(0).getRect();
+    }
+
+    public Set<String> getAllGrandChildrenFromParentSelector(
+            String parentSelector) {
+        return throwOrGetListBySelector(parentSelector+" > * > *").stream()
+                .map(element -> element.getText())
+                .collect(Collectors.toSet());
+    }
+    List<String> listOfAllGrandChildrenFromParentSelector;
+    public List<String> setListOfAllGrandChildrenFromParentSelector(
+            String parentSelector,boolean newLinesInText) {
+        listOfAllGrandChildrenFromParentSelector = new ArrayList<>();
+        listOfAllGrandChildrenFromParentSelector =
+                throwOrGetListBySelector(parentSelector + " > * > *").stream()
+                        .map(element -> newLinesInText?
+                                        element.getText():
+                                        element.getText().replace("\n","#n#")
+                                )
+                        .collect(Collectors.toList());
+        return listOfAllGrandChildrenFromParentSelector;
+    }
+    public List<String> getListOfAllGrandChildrenFromParentSelector(){
+        return listOfAllGrandChildrenFromParentSelector;
     }
 }

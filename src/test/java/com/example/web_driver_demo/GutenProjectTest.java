@@ -11,8 +11,6 @@ import java.util.List;
 @SpringBootTest
 public class GutenProjectTest {
 
-    private static AuchanProm auchanProm;
-
     @BeforeAll
     static void init() {
 

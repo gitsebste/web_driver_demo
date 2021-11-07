@@ -14,7 +14,7 @@ public class AuchanPromTest {
     static void init() {
 
         auchanProm = new AuchanProm();
-        auchanProm.getPromPage();
+        auchanProm.getPage();
     }
 
     @Test

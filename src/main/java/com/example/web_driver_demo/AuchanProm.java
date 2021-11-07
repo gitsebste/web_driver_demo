@@ -2,17 +2,16 @@ package com.example.web_driver_demo;
 
 import utils.Waiting;
 
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public class AuchanProm {
+public class AuchanProm implements GetPageable{
     private static final int PRODUCTS_PER_PAGE = 15;
     MyWebDriver myWebDriver = new MyWebDriver();
     private int numberOfAllProducts;
     private int numberOfReachableProducts;
     private String numberOfProductsTxt=""; // Załadowano 15 produkt(y) na 213
 
-    public void getPromPage() {
+    public void getPage() {
         myWebDriver.getPage("https://zakupy.auchan.pl/shop/boutique.b-172/promocje.c-19138?qq=%7B%7D");
         closePopups();
         getNumberOfProductsText();
