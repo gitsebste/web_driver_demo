@@ -66,7 +66,6 @@ public class MyRobot {
     public static void scrollDown() {
         int keyCode = KeyEvent.VK_PAGE_DOWN;
         clickKey(keyCode);
-        // System.out.println( "scrolled down" );
     }
 
     public static void mouseMove(int x, int y) {

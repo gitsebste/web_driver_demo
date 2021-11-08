@@ -12,7 +12,6 @@ import utils.Waiting;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MyWebDriver {
@@ -87,12 +86,6 @@ public class MyWebDriver {
         return throwOrGetListBySelector(selector).get(0).getRect();
     }
 
-    public Set<String> getAllGrandChildrenFromParentSelector(
-            String parentSelector) {
-        return throwOrGetListBySelector(parentSelector+" > * > *").stream()
-                .map(element -> element.getText())
-                .collect(Collectors.toSet());
-    }
     List<String> listOfAllGrandChildrenFromParentSelector;
     public List<String> setListOfAllGrandChildrenFromParentSelector(
             String parentSelector,boolean newLinesInText) {

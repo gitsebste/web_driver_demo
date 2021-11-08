@@ -2,17 +2,17 @@ package com.example.web_driver_demo;
 
 import utils.Waiting;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SongsToGiveYouChills implements GetPageable{
 
     private final MyWebDriver myDriver;
-    private static final int MAX_BOOK_ID = 19446;
-    private List<GutenProject.Book> tenLongestBooks;
     private static Pattern numPattern = Pattern.compile("-?\\d+(\\.\\d+)?");
 
     SongsToGiveYouChills(){
@@ -56,7 +56,7 @@ public class SongsToGiveYouChills implements GetPageable{
     }
 
     private void scrollDownAndWait(int millis) {
-        MyRobot.scrollDown();
+        scrollDown();
         waitMillis(millis);
     }
 
@@ -70,7 +70,6 @@ public class SongsToGiveYouChills implements GetPageable{
 
     private Set<String> getVisibleSongs(int lowerBound, int upperBound) {
         String selector = "#main > div > div.Root__top-container > div.Root__main-view > main > div.os-host.os-host-foreign.os-theme-spotify.os-host-resize-disabled.os-host-scrollbar-horizontal-hidden.main-view-container__scroll-node.os-host-transition.os-host-overflow.os-host-overflow-y > div.os-padding > div > div > div.main-view-container__scroll-node-child > section > div._5wXWalxnOyFQX7uHu_j > div:nth-child(3) > div > div.iDlSBR5JgCntHwvGPaQk > div:nth-child(2)";
-        //List<String> visibleSongs = myDriver.setListOfAllGrandChildrenFromParentSelector(selector);
         Waiting.runUntilSuccessOrTimeout(()->{
             //1
             //Only Love Can Break Your Heart
@@ -78,7 +77,6 @@ public class SongsToGiveYouChills implements GetPageable{
             //After the Gold Rush (2009 Remaster)
             //18 days ago
             //3:08
-            //myDriver.driver.getPageSource();
             boolean val = myDriver.
                     setListOfAllGrandChildrenFromParentSelector(selector,false)
                     .stream()
@@ -90,8 +88,6 @@ public class SongsToGiveYouChills implements GetPageable{
         });
 
         List<String> visibleSongs = myDriver.getListOfAllGrandChildrenFromParentSelector();
-        //System.out.println(visibleSongs);
-        // throw new IllegalArgumentException("");
         return visibleSongs.stream().collect(Collectors.toSet());
     }
 
@@ -105,4 +101,22 @@ public class SongsToGiveYouChills implements GetPageable{
         );
         MyRobot.mouseMove(rect.x_min-50,rect.y_min);
     }
+
+    public static List<Song> getSortedSongsById() {
+        return allSongsDataArr;
+    }
+
+    private static final String songsPath;
+
+    static {
+        songsPath = MyPath.getSongsFile();
+        Song.SetDelimiter("#n#");
+        try (Stream<String> lines = Files.lines(Path.of(songsPath))) {
+            allSongsDataArr = lines.map(Song::ofStringWithDelimiter)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private static List<Song> allSongsDataArr;
 }

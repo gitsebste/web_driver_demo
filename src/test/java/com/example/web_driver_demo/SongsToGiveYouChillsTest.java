@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Set;
 
 @SpringBootTest
@@ -12,26 +13,22 @@ public class SongsToGiveYouChillsTest {
 
     private static SongsToGiveYouChills songsToGiveYouChills;
 
-    @BeforeAll
-    static void init() {
+//    @BeforeAll static void init() {
+//
+//        songsToGiveYouChills = new SongsToGiveYouChills();
+//        songsToGiveYouChills.getPage();
+//    }
 
-        songsToGiveYouChills = new SongsToGiveYouChills();
-        songsToGiveYouChills.getPage();
-    }
-
-    @Test
-     void testGetPage() {
+    @Test void testGetPage() {
 
         boolean actual = songsToGiveYouChills.isLastSongReachable();
 
         Assertions.assertTrue(actual);
     }
 
-    @Test
-    void testGetAllSongs() {
-
-        Set<Object> songs = songsToGiveYouChills.getAllSongs();
-        songs.stream().forEach(System.out::println);
+    @Test void testSortedSongs(){
+        List<Song> songs = songsToGiveYouChills.getSortedSongsById();
         Assertions.assertEquals(715,songs.size());
+        songs.stream().forEach(System.out::println);
     }
 }

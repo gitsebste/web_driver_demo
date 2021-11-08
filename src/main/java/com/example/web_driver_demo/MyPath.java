@@ -8,4 +8,9 @@ public class MyPath {
         String path = resourcesDirectory.getAbsolutePath();
         return path;
     }
+    public static String getSongsFile() {
+        File resourcesDirectory = new File("songs.txt");
+        String path = resourcesDirectory.getAbsolutePath();
+        return path;
+    }
 }
