@@ -4,7 +4,7 @@ import utils.Waiting;
 
 import java.util.stream.Stream;
 
-public class AuchanProm implements GetPageable{
+public class AuchanProm {
     private static final int PRODUCTS_PER_PAGE = 15;
     MyWebDriver myWebDriver = new MyWebDriver();
     private int numberOfAllProducts;

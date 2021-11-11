@@ -1,5 +1,6 @@
-package com.example.web_driver_demo;
+package com.example.web_driver_demo.songs;
 
+import com.example.web_driver_demo.*;
 import utils.Waiting;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class SongsToGiveYouChills implements GetPageable{
+public class SongsToGiveYouChills {
 
     private final MyWebDriver myDriver;
     private static Pattern numPattern = Pattern.compile("-?\\d+(\\.\\d+)?");

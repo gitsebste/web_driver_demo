@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class MyWebDriver {
     final WebDriver driver;
 
-    MyWebDriver() {
+    public MyWebDriver() {
         setUpSystem();
         driver = new ChromeDriver();
     }

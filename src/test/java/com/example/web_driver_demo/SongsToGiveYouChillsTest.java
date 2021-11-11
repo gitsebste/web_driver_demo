@@ -1,12 +1,12 @@
 package com.example.web_driver_demo;
 
+import com.example.web_driver_demo.songs.Song;
+import com.example.web_driver_demo.songs.SongsToGiveYouChills;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Set;
 
 @SpringBootTest
 public class SongsToGiveYouChillsTest {
