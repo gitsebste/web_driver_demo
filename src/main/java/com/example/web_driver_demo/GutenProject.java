@@ -57,13 +57,7 @@ public class GutenProject {
                 new Book(100, 5468011), // The Complete Works of William Shakespeare
                 new Book(200, 8168634), // The Project Gutenberg Gutenberg Encyclopedia, Vol 1
                 new Book(673, 25005380), // error
-        }).toList() );
-//TODO: to remove in next commit
-//        for (int id = 1; id <= 10; id++) {
-//            String url = getUrlFromId(id);
-//            myDriver.getPage(url);
-//            tenLongest.add(new Book(id,myDriver.getPageSize()));
-//        }
+        }).collect(Collectors.toList()) );
     }
 
     private String getUrlFromId(int id) {

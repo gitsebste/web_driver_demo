@@ -11,24 +11,8 @@ import java.util.List;
 @SpringBootTest
 public class SongsToGiveYouChillsTest {
 
-    private static SongsToGiveYouChills songsToGiveYouChills;
-
-//    @BeforeAll static void init() {
-//
-//        songsToGiveYouChills = new SongsToGiveYouChills();
-//        songsToGiveYouChills.getPage();
-//    }
-
-    @Test void testGetPage() {
-
-        boolean actual = songsToGiveYouChills.isLastSongReachable();
-
-        Assertions.assertTrue(actual);
-    }
-
     @Test void testSortedSongs(){
-        List<Song> songs = songsToGiveYouChills.getSortedSongsById();
+        List<Song> songs = SongsToGiveYouChills.getSortedSongsById();
         Assertions.assertEquals(715,songs.size());
-        songs.stream().forEach(System.out::println);
     }
 }
